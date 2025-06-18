@@ -2,8 +2,9 @@ import React from "react";
 import HomeImg from "../assets/hospital-home-img.jpg";
 import HomeDoctor from "../assets/Home-doctor-removebg-preview.png";
 import { GoArrowUpRight } from "react-icons/go";
-
+import {useNavigate} from "react-router-dom"
 function Home() {
+  const navigate = useNavigate()
   return (
     <div className="py-5">
       {/* Hero Section */}
@@ -20,7 +21,7 @@ function Home() {
               using advanced medical technology—ensuring safe, personalized
               treatment for every patient.
             </p>
-            <button className="bg-white text-[#036176] py-1 px-2 rounded-full mt-5 hover:text-white hover:bg-[#036176] duration-500 active:bg-[#024d5c]">
+            <button onClick={()=>navigate("/doctor")} className="bg-white text-[#036176] py-1 px-2 rounded-full mt-5 hover:text-white hover:bg-[#036176] duration-500 active:bg-[#024d5c]">
               Make Appointment
             </button>
             <div className="flex justify-between mt-10">

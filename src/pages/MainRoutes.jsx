@@ -3,15 +3,29 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import ProtectedRoutes from "../components/ProtectedRoutes";
+import DoctorPage from "./DoctorPage";
+import SingleDoctorProfile from "./SingleDoctorProfile";
 
 function MainRoutes() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
+        {/* Protected routes */}
+        <Route
+          path="/"
+          element={
+            // <ProtectedRoutes>
+            <Home />
+            // </ProtectedRoutes>
+          }
+        />
+        <Route path="/doctor" element={<DoctorPage />} />
+        <Route path="/single-doctor/:id" element={<SingleDoctorProfile />} />
 
+        {/* None protected routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );

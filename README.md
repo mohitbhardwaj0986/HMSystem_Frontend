@@ -1,12 +1,59 @@
-# React + Vite
+# HMS Frontend (Hospital Management System)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the HMS (Hospital Management System), built with **React.js**, **Redux Toolkit**, **Axios**, **React Router**, and **Tailwind CSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Features Completed
 
-## Expanding the ESLint configuration
+- ✅ Responsive **Home Page**
+- ✅ Animated **Login** & **Register** pages
+- ✅ **Doctor Profile** listing & details (fetched using Redux Toolkit + Axios)
+- ✅ Reusable **Toastify** notifications
+- ✅ Clean UI with soft gradients and modern typography
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚙️ Tech Stack
+
+- ⚛️ React.js
+- 🎯 Redux Toolkit (RTK)
+- 📡 Axios (with interceptors)
+- 🎨 Tailwind CSS
+- 🍞 React Toastify
+- 🌍 React Router DOM
+
+---
+
+## 📁 Folder Structure
+
+
+---
+
+## 🚀 Pages Overview
+
+### 🏠 Home Page
+- Introductory section about the HMS
+- Smooth UI with gradient backgrounds
+- Button navigation to Login/Register or Doctor profiles
+
+### 🔐 Login & Register
+- Beautiful UI with clean layout
+- Uses `Toastify` to show:
+  - ✅ Login successful
+  - ❌ Errors (invalid credentials, missing fields)
+- Stores `accessToken` & `userInfo` in `localStorage`
+
+### 👨‍⚕️ Doctor Profile
+- Displays **all doctors** from backend
+- Each doctor card:
+  - Avatar fallback
+  - Bio, specialization, education
+  - Button to view profile (`/single-doctor/:id`)
+- Detailed page for selected doctor
+- Handled via `Redux Toolkit + Axios`
+
+---
+
+
+
