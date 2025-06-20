@@ -3,9 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
+const accessTokenFromStorage = localStorage.getItem("accessToken")
+  ? (localStorage.getItem("accessToken"))
+  : null;
 
 const initialState = {
   user: userInfoFromStorage,
+  accessToken:accessTokenFromStorage,
   loading: false,
   error: null,
 };
@@ -23,6 +27,9 @@ const userSlice = createSlice({
 
       state.loading = false;
     },
+    loadingTrue:(state) =>{
+      state.loading = false
+    },
     userFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -35,5 +42,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { userRequest, userSuccess, userFail, logouotUser } =
+export const { userRequest, userSuccess, userFail, logouotUser ,loadingTrue} =
   userSlice.actions;

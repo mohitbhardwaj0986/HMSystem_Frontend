@@ -6,6 +6,8 @@ import Register from "../auth/Register";
 import ProtectedRoutes from "../components/ProtectedRoutes";
 import DoctorPage from "./DoctorPage";
 import SingleDoctorProfile from "./SingleDoctorProfile";
+import AppointmentForm from "./AppointmentForm";
+import Profile from "./Profile";
 
 function MainRoutes() {
   return (
@@ -17,11 +19,13 @@ function MainRoutes() {
           element={
             // <ProtectedRoutes>
             <Home />
-            // </ProtectedRoutes>
+            /* </ProtectedRoutes> */
           }
         />
         <Route path="/doctor" element={<DoctorPage />} />
         <Route path="/single-doctor/:id" element={<SingleDoctorProfile />} />
+        <Route path="/appointment-create/:id" element={<AppointmentForm />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* None protected routes */}
         <Route path="/login" element={<Login />} />

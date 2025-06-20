@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import LoadingButton from "./LoadingButton";
 
 function Nav() {
-  const { user, loading } = useSelector((state) => state.user);
+  const { user, loading, accessToken } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -44,9 +44,8 @@ function Nav() {
           </NavLink>
         </div>
         <div className="flex gap-5">
-          {!user && (
+          {(!user || !accessToken) && (
             <div className="flex gap-3">
-              {" "}
               <Button onClick={() => navigate("/login")} className="text-sm">
                 Login
               </Button>
@@ -55,7 +54,18 @@ function Nav() {
               </Button>
             </div>
           )}
-          {user && (
+          <div>
+            {user && accessToken && (
+              <Button
+                type="submit"
+                onClick={() => navigate("/profile")}
+                className={`px-2 py-1 rounded bg-[#036176]  text-white hover:bg-[#024d5c] transition`}
+              >
+                Profile
+              </Button>
+            )}
+          </div>
+          {user && accessToken && (
             <div>
               {loading ? (
                 <LoadingButton

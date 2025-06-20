@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetAllDoctorProfile } from "../store/actions/doctorProfileAction";
 import { useEffect } from "react";
-import userDefaultIMG from "../../public/default-userImg.avif";
+import userDefaultIMG from "../assets/default-userImg.avif";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "./LoadingSponner";

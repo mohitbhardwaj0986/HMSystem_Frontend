@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { asyncSingledoctorProfile } from "../store/actions/doctorProfileAction";
-import userDefaultIMG from "../../public/default-userImg.avif" 
+import userDefaultIMG from "../assets/default-userImg.avif";
 import LoadingSpinner from "./LoadingSponner";
 import Button from "../components/Button";
 
 function SingleDoctorProfile() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { singleDoctorProfile, loading, error } = useSelector(
     (state) => state.doctorProfile
@@ -67,7 +68,7 @@ function SingleDoctorProfile() {
           <strong className="text-[#036176]">Bio:</strong>{" "}
           {singleDoctorProfile?.bio}
         </p>
-        <Button>Appointment</Button>
+        <Button onClick={()=>navigate(`/appointment-create/${singleDoctorProfile._id}`)}>Appointment</Button>
       </div>
     </div>
   ) : (
