@@ -5,6 +5,7 @@ import doctorProfileSlice from "./reducers/doctorProfileSlice"
 import prescriptionSlice from "./reducers/prescriptionSlice"
 import billingSlice from "./reducers/billingSlice"
 import notificationSlice from "./reducers/notificationSlice"
+import medicalRecordSlice from "./reducers/medicalRecordSlice"
 
 export const store = configureStore({
     reducer:{
@@ -12,8 +13,9 @@ export const store = configureStore({
         appointment:appointmentSlice,
         doctorProfile:doctorProfileSlice,
         prescription:prescriptionSlice,
-        billing:billingSlice,
-        notification:notificationSlice
+        bill:billingSlice,
+        notification:notificationSlice,
+        medicalRecord:medicalRecordSlice
     },
 
 })

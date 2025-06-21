@@ -2,10 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { asyncCreateAppointment } from "../store/actions/appointmentAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingButton from "../components/LoadingButton"
 function AppointmentForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { appointmentLaoding } = useSelector(
+    (state) => state.appointment
+  );
 
   const {
     register,
@@ -70,12 +74,12 @@ function AppointmentForm() {
         </div>
 
         <div className="flex justify-center">
-          <button
+         {!appointmentLaoding ? <button
             type="submit"
             className="bg-[#036176] text-white px-4 py-2 rounded hover:bg-[#024d5c] transition"
           >
             Book Appointment
-          </button>
+          </button>:<LoadingButton/>}
         </div>
       </form>
     </div>

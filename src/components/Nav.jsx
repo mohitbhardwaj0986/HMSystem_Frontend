@@ -46,10 +46,10 @@ function Nav() {
         <div className="flex gap-5">
           {(!user || !accessToken) && (
             <div className="flex gap-3">
-              <Button onClick={() => navigate("/login")} className="text-sm">
+              <Button onClick={() => navigate("/login")} className="">
                 Login
               </Button>
-              <Button onClick={() => navigate("/register")} className="text-sm">
+              <Button onClick={() => navigate("/register")} className="">
                 Sign up
               </Button>
             </div>
@@ -59,7 +59,7 @@ function Nav() {
               <Button
                 type="submit"
                 onClick={() => navigate("/profile")}
-                className={`px-2 py-1 rounded bg-[#036176]  text-white hover:bg-[#024d5c] transition`}
+                className={` rounded bg-[#036176]  text-white hover:bg-[#024d5c] transition`}
               >
                 Profile
               </Button>

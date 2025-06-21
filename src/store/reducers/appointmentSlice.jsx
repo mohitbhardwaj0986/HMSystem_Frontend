@@ -2,25 +2,27 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   appointment: [],
-  laoding: false,
+  appointmentLaoding: false,
   error: null,
 };
 
 const appointmentSlice = createSlice({
   name: "appointment",
+  laoding: false,
+  error: null,
   initialState,
   reducers: {
     requestAppointment: (state) => {
-      state.laoding = true;
+      state.appointmentLaoding = true;
       state.error = null;
     },
     appointmentSuccess: (state, action) => {
       state.appointment = action.payload;
-      state.laoding = false;
+      state.appointmentLaoding = false;
     },
     failAppointment: (state, action) => {
       state.error = action.payload;
-      state.laoding = false;
+      state.appointmentLaoding = false;
     },
   },
 });

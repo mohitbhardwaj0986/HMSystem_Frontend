@@ -5,14 +5,12 @@ import {
   logouotUser,
   userFail,
   userSuccess,
-  loadingTrue,
 } from "../reducers/userSlice";
 
 export const asyncLoginUser = (formData, navigate) => async (dispatch) => {
   try {
     dispatch(userRequest());
     const { data } = await axios.post("user/login", formData);
-    console.log(data?.data);
     localStorage.setItem("accessToken", data?.data?.accessToken);
     localStorage.setItem("userInfo", JSON.stringify(data?.data?.user));
     dispatch(userSuccess(data?.data?.user));
@@ -56,9 +54,7 @@ export const asyncUpdateUseDetials = (formData) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(data);
-
-    localStorage.setItem("userInfo", JSON.stringify(data?.data));
+    dispatch(asyncGetCurrentUser());
     dispatch(userSuccess(data?.data?.user));
     toast.success("Account details updated");
   } catch (error) {
@@ -72,11 +68,10 @@ export const asyncChangePassword = (formData) => async (dispatch) => {
     dispatch(userRequest());
     console.log(data);
     const { data } = await axios.patch("/user/change-password", formData);
+    dispatch(asyncGetCurrentUser())
     toast.success("Password changed successfully");
-    dispatch(loadingTrue());
+    dispatch(userSuccess(data?.data));
   } catch (error) {
-    console.log(error);
-
     dispatch(userFail(error.response?.data?.data?.message));
     toast.error(
       error.response?.data?.data?.message ||
@@ -89,10 +84,11 @@ export const asyncChangeAvartar = (formData) => async (dispatch) => {
   try {
     dispatch(userRequest());
 
-    const { data } = await axios.patch("/user/update-avatar", formData); 
-
+    const { data } = await axios.patch("/user/update-avatar", formData);
+dispatch(asyncGetCurrentUser())
     toast.success("Avatar changed successfully");
-    dispatch(loadingTrue());
+    dispatch(userSuccess(data?.data));
+    console.log(data);
   } catch (error) {
     const msg = error.response?.data?.message || "Failed to change avatar";
     dispatch(userFail(msg));
@@ -100,3 +96,16 @@ export const asyncChangeAvartar = (formData) => async (dispatch) => {
   }
 };
 
+export const asyncGetCurrentUser = () => async (dispatch) => {
+  try {
+    dispatch(userRequest());
+    const { data } = await axios.get("/user/current-user");
+    console.log(data);
+
+    localStorage.setItem("userInfo", JSON.stringify(data?.data));
+    dispatch(userSuccess(data?.data));
+  } catch (error) {
+    const msg = error.response?.data?.message || "Failed to fetch user";
+    dispatch(userFail(msg));
+  }
+};
