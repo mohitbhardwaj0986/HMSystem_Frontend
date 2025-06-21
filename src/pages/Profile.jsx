@@ -29,6 +29,7 @@ import {
   asyncgetMedicalRecord,
 } from "../store/actions/medicaReocrdAction";
 import { asyncdeleteBill, asyncGetBill } from "../store/actions/billAction";
+import { asyncGetAllDoctorProfile } from "../store/actions/doctorProfileAction";
 
 function Profile() {
   const billRef = useRef();
@@ -47,6 +48,10 @@ function Profile() {
     (state) => state.medicalRecord
   );
   const { bills, billLoading } = useSelector((state) => state.bill);
+  const { doctorProfile } = useSelector((state) => state.doctorProfile);
+  const existeddoctor = doctorProfile.filter(
+    (item) => item?.user._id == user?._id
+  );
 
   const {
     register,
@@ -78,6 +83,7 @@ function Profile() {
     dispatch(asyncGetAppointment(userRole));
     dispatch(asyncgetMedicalRecord(userRole));
     dispatch(asyncGetBill(userRole));
+    dispatch(asyncGetAllDoctorProfile());
   }, []);
   const appointmentDeleteHandle = (id) => {
     dispatch(asyncAppointmentDelete(id));
@@ -91,7 +97,7 @@ function Profile() {
   const medicalRecordDeleteHangle = (id) => {
     dispatch(asyncDeleteMedicalReport(id, userRole));
   };
-  
+
   const handleDownload = () => {
     const element = billRef.current;
 
@@ -113,7 +119,9 @@ function Profile() {
     <div className="w-full h-screen flex flex-col md:flex-row bg-gray-50">
       {/* Sidebar */}
       <div className="w-full md:w-64 bg-white border-r-2 border-[#024D5C] p-4 h-full">
-        <h2 className="text-xl font-bold mb-6">Profile Settings</h2>
+        <h2 className="text-xl font-bold mb-6">
+          {userRole === "admin" ? "Dasboard Settings" : "Profile Settings"}
+        </h2>
         <ul className="space-y-3">
           {[
             {
@@ -167,7 +175,7 @@ function Profile() {
 
       {/* Right Content */}
 
-      <div className="flex-1 overflow-y-auto h-full  ">
+      <div className="flex-1 xl:overflow-y-auto h-full  ">
         {selected === "account" && (
           <div className="bg-gradient-to-b py-25 from-[#bcfcff] to-[#f5ffff] w-full">
             <div className="max-w-xl mx-auto  bg-white shadow-lg rounded-xl p-6 space-y-4">
@@ -186,7 +194,15 @@ function Profile() {
                 </div>
                 <div>
                   <h2 className="text-xl font-bold">{user?.fullName}</h2>
-                  <p className="text-gray-600 capitalize">{user?.role}</p>
+                  <p
+                    className={`${
+                      user.role === "admin"
+                        ? "text-green-600 font-semibold bg-green-200 py-1 px-2 rounded-full text-xs"
+                        : "text-gray-600"
+                    } capitalize`}
+                  >
+                    {user?.role}
+                  </p>
                 </div>
               </div>
 
@@ -208,11 +224,36 @@ function Profile() {
                   <p>{new Date(user?.updatedAt).toLocaleString()}</p>
                 </div>
               </div>
+              <div className="flex justify-between">
+                {userRole === "doctor" && (
+                  <button
+                    onClick={() => navigate("/doctorprofiel/create")}
+                    className={` ${
+                      existeddoctor.length === 0
+                        ? "bg-yellow-100 py-1 px-2 rounded-md text-yellow-600 hover:bg-amber-200 "
+                        : "bg-green-100 py-1 px-2 rounded-md text-green-500 hover:bg-green-200"
+                    } `}
+                  >
+                    {existeddoctor.length === 0 ? "Activate Profile" : "Active"}
+                  </button>
+                )}
+                {userRole === "doctor" && existeddoctor.length > 0 && (
+                  <Button
+                    onClick={() =>
+                      navigate(`/single-doctor/${existeddoctor[0]._id}`)
+                    }
+                  >
+                    See Profile
+                  </Button>
+                )}
+              </div>
             </div>
+            <div></div>
           </div>
         )}
+
         {selected === "update account" && (
-          <div className="w-[50%] px-10 py-10">
+          <div className="xl:w-[50%] px-10 py-10">
             <h3 className="text-xl font-semibold mb-4 text-[#036176]">
               Update Account Details
             </h3>
@@ -251,7 +292,7 @@ function Profile() {
         )}
 
         {selected === "password" && (
-          <div className="w-[50%] px-10 py-10">
+          <div className="xl:w-[50%] px-10 py-10">
             <h3 className="text-xl font-semibold mb-4 text-[#036176]">
               Change Password
             </h3>
@@ -333,7 +374,7 @@ function Profile() {
         )}
         {selected === "appointment" &&
           (!appointmentLaoding ? (
-            <div className="  bg-gradient-to-b py-5 px-10 from-[#bcfcff] to-[#f5ffff] w-full">
+            <div className="bg-gradient-to-b py-5 px-5 from-[#bcfcff] to-[#f5ffff] w-full">
               <h1 className="text-2xl font-bold mb-6 text-center text-[#024D5C]">
                 My Appointments
               </h1>
@@ -392,7 +433,7 @@ function Profile() {
                       </p>
                     </div>
 
-                    <div className="mt-4 flex justify-between">
+                    <div className="mt-4 flex flex-wrap xl:flex-row  gap-3 xl:gap-4 items-start xl:items-center xl:justify-between">
                       <span
                         className={`inline-block text-sm px-2 py-1 rounded-full font-semibold ${
                           appointment.isPaid
@@ -402,25 +443,28 @@ function Profile() {
                       >
                         {appointment.isPaid ? "Paid" : "Not Paid"}
                       </span>
+
                       {appointment.status === "completed" && (
                         <Button
                           onClick={() => setSelected("prescription")}
-                          className={`inline-block text-sm px-2 py-1 rounded-full `}
+                          className="text-sm px-3 py-1 rounded-full"
                         >
                           See prescription
                         </Button>
                       )}
+
                       {userRole === "admin" &&
                         appointment.status === "completed" && (
                           <Button
                             onClick={() =>
                               navigate(`/bill/create/${appointment._id}`)
                             }
-                            className={`inline-block text-sm px-2 py-1 rounded-full  font-semibold ${" text-white"}`}
+                            className="text-sm px-3 py-1 rounded-full text-white "
                           >
                             Create Bill
                           </Button>
                         )}
+
                       {(userRole === "doctor" || userRole === "admin") &&
                         appointment.status === "completed" && (
                           <Button
@@ -429,19 +473,20 @@ function Profile() {
                                 `/create/medicalrecord/${appointment._id}`
                               )
                             }
-                            className={`inline-block text-sm px-2 py-1 rounded-full `}
+                            className="text-sm px-3 py-1 rounded-full"
                           >
                             Make Record
                           </Button>
                         )}
+
                       {userRole === "admin" && (
                         <Button
                           onClick={() =>
                             appointmentDeleteHandle(appointment?._id)
                           }
-                          className={`inline-block text-sm px-2 py-1 rounded-full hover:bg-red-400 font-semibold ${"bg-red-500 text-white"}`}
+                          className="text-sm px-3 py-1 rounded-full bg-red-500 text-white hover:bg-red-400"
                         >
-                          delete
+                          Delete
                         </Button>
                       )}
 
@@ -453,9 +498,9 @@ function Profile() {
                                 `/create/prescription/${appointment._id}`
                               )
                             }
-                            className={`inline-block text-sm px-2 py-1 rounded-full `}
+                            className="text-sm px-3 py-1 rounded-full"
                           >
-                            Create prescription
+                            Create Prescription
                           </Button>
                         )}
                     </div>
@@ -789,7 +834,7 @@ function Profile() {
                   All Patient Bills
                 </h1>
 
-                {bills.map((bill, i) => (
+                {bills?.map((bill, i) => (
                   <div
                     ref={billRef}
                     key={bill._id}
@@ -921,9 +966,11 @@ function Profile() {
                 ))}
 
                 <div className="text-center text-xs mt-10">
-                  <Button onClick={handleDownload} className="mt-2 no-print">
-                    Download
-                  </Button>
+                  {bills?.length > 0 && (
+                    <Button onClick={handleDownload} className="mt-2 no-print">
+                      Download
+                    </Button>
+                  )}
                   <p>
                     This is a computer-generated bill. No signature required.
                   </p>

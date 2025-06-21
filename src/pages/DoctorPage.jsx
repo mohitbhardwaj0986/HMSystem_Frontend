@@ -16,7 +16,7 @@ function DoctorPage() {
   const { doctorProfile, loading, error } = useSelector(
     (state) => state.doctorProfile
   );
-  console.log(doctorProfile);
+  
   return (
     <div className="px-4 py-8  min-h-screen">
   <h1 className="text-center text-[#036176] text-3xl font-bold mb-8">Our Doctors</h1>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from './components/Nav'
 import MainRoutes from './pages/MainRoutes'
+import Footer from './components/Footer'
 
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <>
     <Nav/>
     <MainRoutes/>
+    <Footer/>
     </>
   )
 }
