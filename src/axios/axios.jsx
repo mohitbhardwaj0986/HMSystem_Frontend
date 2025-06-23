@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api/v1/",
+  baseURL: "https://hmsystem-backend.onrender.com/",
   withCredentials: true, 
 });
 
@@ -26,7 +26,7 @@ instance.interceptors.response.use(
       try {
         // Call your refresh endpoint
         const { data } = await axios.get(
-          "http://localhost:3000/api/v1/user/refresh-token",
+          "https://hmsystem-backend.onrender.com/user/refresh-token",
           { withCredentials: true }
         );
 
