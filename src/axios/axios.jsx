@@ -1,7 +1,8 @@
 import axios from "axios";
+const backendapi_url = import.meta.env.VITE_BACKEND_URL
 
 const instance = axios.create({
-  baseURL: "https://hmsystem-backend.onrender.com/api/v1/",
+  baseURL: `${backendapi_url}api/v1/`,
   withCredentials: true, 
 });
 
@@ -26,7 +27,7 @@ instance.interceptors.response.use(
       try {
         // Call your refresh endpoint
         const { data } = await axios.get(
-          "https://hmsystem-backend.onrender.com/api/v1/user/refresh-token",
+          `${backendapi_url}api/v1/user/refresh-token`,
           { withCredentials: true }
         );
 
