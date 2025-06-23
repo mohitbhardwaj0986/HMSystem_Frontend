@@ -6,9 +6,11 @@ import { asyncRegisterUser } from "../store/actions/userAction";
 import Button from "../components/Button";
 import LoadingButton from "../components/LoadingButton";
 import registerImg from "../assets/register.jpg"
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const { user, loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate()
 const dispatch = useDispatch()
   const {
     handleSubmit,
@@ -19,6 +21,7 @@ const dispatch = useDispatch()
   const SubmitHandler = (data) => {
     console.log(data);
     dispatch(asyncRegisterUser(data))
+    navigate("/login")
     reset()
   };
   return (
