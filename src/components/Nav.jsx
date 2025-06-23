@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HMSLogo from "../assets/HMS logo.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { asyncLogout } from "../store/actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import LoadingButton from "./LoadingButton";
 import { MdMenu } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 
@@ -15,6 +14,12 @@ function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+    console.log(user, accessToken);
+    console.log(user, accessToken);
+    
+ 
+
+  
   const logoutHandle = () => {
     if (!user) {
       return toast.error("please login first");
@@ -83,7 +88,9 @@ function Nav() {
                 {user.role === "admin" ? "Dashboard" : "Profile"}
               </Button>
               {loading ? (
-                <Button disabled className="bg-[#6d99a3]">Loading...</Button>
+                <Button disabled className="bg-[#6d99a3]">
+                  Loading...
+                </Button>
               ) : (
                 <Button
                   onClick={() => {
@@ -148,7 +155,9 @@ function Nav() {
                 {user.role === "admin" ? "Dashboard" : "Profile"}
               </Button>
               {loading ? (
-                <Button disabled className="bg-[#6d99a3]">Loading...</Button>
+                <Button disabled className="bg-[#6d99a3]">
+                  Loading...
+                </Button>
               ) : (
                 <Button
                   onClick={() => {

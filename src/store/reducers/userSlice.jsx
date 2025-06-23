@@ -24,7 +24,7 @@ const userSlice = createSlice({
     },
     userSuccess: (state, action) => {
       state.user = action.payload;
-
+      state.accessToken = action.payload
       state.loading = false;
     },
 
