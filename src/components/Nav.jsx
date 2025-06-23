@@ -14,12 +14,9 @@ function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-    console.log(user, accessToken);
-    console.log(user, accessToken);
-    
- 
+  console.log(user, accessToken);
+  console.log(user, accessToken);
 
-  
   const logoutHandle = () => {
     if (!user) {
       return toast.error("please login first");
@@ -47,7 +44,8 @@ function Nav() {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center xl:justify-between xl:w-[50%]  gap-6 ">
+          <div className="hidden md:flex items-center xl:justify-between  gap-6">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -72,38 +70,40 @@ function Nav() {
           >
             About Us
           </NavLink>
-
-          {/* Auth Buttons */}
-          {!user || !accessToken ? (
-            <>
-              <Button onClick={() => navigate("/login")}>Login</Button>
-              <Button onClick={() => navigate("/register")}>Sign up</Button>
-            </>
-          ) : (
-            <>
-              <Button
-                onClick={() => navigate("/profile")}
-                className="bg-[#036176] text-white hover:bg-[#024d5c]"
-              >
-                {user.role === "admin" ? "Dashboard" : "Profile"}
-              </Button>
-              {loading ? (
-                <Button disabled className="bg-[#6d99a3]">
-                  Loading...
-                </Button>
-              ) : (
+          </div>
+          <div className="flex gap-5">
+            {/* Auth Buttons */}
+            {!user || !accessToken ? (
+              <>
+                <Button onClick={() => navigate("/login")}>Login</Button>
+                <Button onClick={() => navigate("/register")}>Sign up</Button>
+              </>
+            ) : (
+              <>
                 <Button
-                  onClick={() => {
-                    logoutHandle();
-                    setMenuOpen(false);
-                  }}
+                  onClick={() => navigate("/profile")}
                   className="bg-[#036176] text-white hover:bg-[#024d5c]"
                 >
-                  Logout
+                  {user.role === "admin" ? "Dashboard" : "Profile"}
                 </Button>
-              )}
-            </>
-          )}
+                {loading ? (
+                  <Button disabled className="bg-[#6d99a3]">
+                    Loading...
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      logoutHandle();
+                      setMenuOpen(false);
+                    }}
+                    className="bg-[#036176] text-white hover:bg-[#024d5c]"
+                  >
+                    Logout
+                  </Button>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
 
