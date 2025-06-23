@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   return (
-    <div className="py-5">
+    <div className="py-5 overflow-x-hidden">
   {/* Hero Section */}
   <section className="w-[95%] min-h-[90vh] mx-auto bg-gradient-to-b from-[#27cbd3] to-[#61eeee] rounded-xl relative overflow-hidden">
     <div className="flex flex-col xl:flex-row justify-between text-white px-4 xl:px-0">
@@ -56,7 +56,7 @@ function Home() {
   <section
     className="flex flex-wrap justify-center xl:justify-start gap-4 xl:gap-2 
                w-[95%] mx-auto mt-10 
-               relative xl:absolute xl:bottom-[-30%] xl:left-[10%]"
+               relative xl:absolute xl:bottom-[-30%] xl:inset-x-0 xl:mx-auto"
   >
     {/* Card 1 - Latest Visited */}
     <div className="w-[85%] sm:w-[45%] xl:w-[12vw] h-[160px] xl:h-[12vw] bg-gray-200 rounded-xl p-2 flex flex-col justify-between">
@@ -70,7 +70,7 @@ function Home() {
             key={i}
             className="w-10 h-10 xl:w-[3vw] xl:h-[3vw] object-cover object-top rounded-full"
             src={`https://i.pinimg.com/736x/${["6e/9d/f2", "db/cd/a1", "6d/b4/4f"][i]}/${["6e9df2f3c04e28142ac302426ac5749f", "dbcda113d27e3c87c30410023c623f19", "6db44f206bb332cd749c5e92ed9bfa91"][i]}.jpg`}
-            alt={`Doctor ${i}`}
+            alt={`Doctor ${i + 1} profile photo`}
           />
         ))}
       </div>
@@ -91,7 +91,7 @@ function Home() {
             key={i}
             className="w-8 h-8 xl:w-[2.5vw] xl:h-[2.5vw] object-cover rounded-full border-2 border-white"
             src={`https://i.pinimg.com/736x/${["6e/9d/f2", "db/cd/a1", "6d/b4/4f"][i]}/${["6e9df2f3c04e28142ac302426ac5749f", "dbcda113d27e3c87c30410023c623f19", "6db44f206bb332cd749c5e92ed9bfa91"][i]}.jpg`}
-            alt={`Doc ${i}`}
+            alt={`Doctor ${i + 1} profile photo`}
           />
         ))}
       </div>
