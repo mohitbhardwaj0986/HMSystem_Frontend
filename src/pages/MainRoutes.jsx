@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoutes from "../components/ProtectedRoutes";
 import NonProtectedRoutes from "../components/NonProtectedRoutes";
 import LoadingSpinner from "./LoadingSponner";
+import PagenotFound from "./PagenotFound";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./Home"));
@@ -51,6 +52,7 @@ function MainRoutes() {
 
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="*" element={<PagenotFound />} />
         {/* Non-protected routes */}
         <Route element={<NonProtectedRoutes />}>
           <Route path="/login" element={<Login />} />
