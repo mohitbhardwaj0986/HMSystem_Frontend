@@ -33,7 +33,7 @@ export const asyncGetBill = (userRole) => async (dispatch) => {
   }
 };
 
-export const asyncdeleteBill = (userRole, id) => async (dispatch) => {
+export const  asyncdeleteBill = (userRole, id) => async (dispatch) => {
   try {
     dispatch(requestBill());
  await axios.delete(`/bill/delete/${id}`);

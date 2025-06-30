@@ -14,8 +14,6 @@ function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(user, accessToken);
-  console.log(user, accessToken);
 
   const logoutHandle = () => {
     if (!user) {

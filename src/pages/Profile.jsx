@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
+import { IoSettingsSharp } from "react-icons/io5";
 import {
   asyncChangeAvartar,
   asyncChangePassword,
@@ -36,6 +37,7 @@ function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selected, setSelected] = useState("account");
+  const [setting, setSetting] = useState(false);
   const { user, loading } = useSelector((state) => state.user);
   const { appointment, appointmentLaoding } = useSelector(
     (state) => state.appointment
@@ -116,10 +118,10 @@ function Profile() {
       .catch((err) => console.error("PDF generation error:", err)); // catch errors
   };
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row bg-gray-50">
+    <div  className="w-full overflow-hidden xl:h-screen  flex md:static xl:static relative flex-col md:flex-row bg-gray-50">
       {/* Sidebar */}
-      <div className="w-full md:w-64 bg-white border-r-2 border-[#024D5C] p-4 h-full">
-        <h2 className="text-xl font-bold mb-6">
+      <div className= {`  ${setting?"right-[0%] top-[0%] ":"right-[-100%] top-[-100%]"}  duration-300 xl:static md:static absolute bg-white border-r-2 border-[#024D5C] p-4 `}>
+        <h2 className="text-xl font-bold mt-3.5 mb-6">
           {userRole === "admin" ? "Dasboard Settings" : "Profile Settings"}
         </h2>
         <ul className="space-y-3">
@@ -158,6 +160,7 @@ function Profile() {
             },
           ].map((item) => (
             <li
+            
               key={item.key}
               onClick={() => setSelected(item.key)}
               className={`flex items-center p-2 cursor-pointer rounded-lg transition ${
@@ -166,7 +169,7 @@ function Profile() {
                   : "hover:bg-gray-100"
               }`}
             >
-              <span className="mr-2">{item.icon}</span>
+              <span  className="mr-2">{item.icon}</span>
               {item.label}
             </li>
           ))}
@@ -175,9 +178,10 @@ function Profile() {
 
       {/* Right Content */}
 
-      <div className="flex-1 xl:overflow-y-auto h-full  ">
+      <div className="flex-1 xl:overflow-y-auto h-full ">
+       <IoSettingsSharp onClick={()=>{setSetting(!setting)}} className="absolute right-[5%] text-2xl top-2 text-[#024D5C] xl:hidden md:hidden" />
         {selected === "account" && (
-          <div className="bg-gradient-to-b py-25 from-[#bcfcff] to-[#f5ffff] w-full">
+          <div onClick={()=>setSetting(false)} className="bg-gradient-to-b  py-25 from-[#bcfcff] to-[#f5ffff] w-full">
             <div className="max-w-xl mx-auto  bg-white shadow-lg rounded-xl p-6 space-y-4">
               {/* Avatar */}
               <div className="flex items-center space-x-4">
